@@ -1,0 +1,290 @@
+<!DOCTYPE html> <html lang="en" dir="auto"> <head><meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=no"> <meta name="description" content="Creating a general service in C++ Broadly speaking, development of a new service in any language requires considering: What types of messages it su..."> <meta name="revised" content="9ce06256c35f963ba058166c53fa1df491567fec"> <meta name="author" content="lhumphrey"> <meta name="generator" content="jekyll-rtd-theme v2.0.10"><meta name="theme-color" content="#2980b9"> <title>Creating a general service in C++ · OpenUxAS</title> <meta name="twitter:title" content="Creating a general service in C++ · OpenUxAS"> <meta name="twitter:description" content="Creating a general service in C++ Broadly speaking, development of a new service in any language requires considering: What types of messages it su..."> <meta name="twitter:card" content="summary"> <meta name="twitter:site" content="@lhumphrey"> <meta name="twitter:url" content="http://localhost:4000/tutorials/addingServices/addGeneralCppService.html"> <meta name="twitter:creator" content="@jekyll-rtd-theme v2.0.10"> <meta property="og:title" content="Creating a general service in C++ · OpenUxAS"> <meta property="og:description" content="Creating a general service in C++ Broadly speaking, development of a new service in any language requires considering: What types of messages it su..."> <meta property="og:locale" content="en"> <meta property="og:url" content="http://localhost:4000/tutorials/addingServices/addGeneralCppService.html"> <meta property="og:type" content="article"> <meta property="article:author" content="lhumphrey"> <meta property="article:published_time" content="2021-03-04T16:49:10-05:00"> <meta property="article:modified_time" content="2021-03-15T13:55:53-04:00"> <script type="application/ld+json"> { "@context": "https://schema.org", "@type": "Article", "mainEntityOfPage": { "@type": "WebPage", "@id": "http://localhost:4000/tutorials/addingServices/addGeneralCppService.html" }, "headline": "Creating a general service in C++ · OpenUxAS", "image": [], "author": { "@type": "Person", "name": "lhumphrey" }, "datePublished": "2021-03-04T16:49:10-05:00", "dateModified": "2021-03-15T13:55:53-04:00", "publisher": { "@type": "User", "name": "lhumphrey", "logo": { "@type": "ImageObject", "url": "https://avatars.githubusercontent.com/u/7327442?v=4" } }, "description": "Creating a general service in C++ Broadly speaking, development of a new service in any language requires considering: What types of messages it su..." } </script> <link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="canonical" href="http://localhost:4000/tutorials/addingServices/addGeneralCppService.html"><link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg"><link rel="icon" type="image/png" href="/assets/images/favicon-16x16.png" sizes="16x16"> <link rel="icon" type="image/png" href="/assets/images/favicon-32x32.png" sizes="32x32"> <link rel="icon" type="image/png" href="/assets/images/favicon-96x96.png" sizes="96x96"><link rel="mask-icon" href="/assets/images/favicon.svg" color="#2980b9"><link rel="apple-touch-icon" href="/assets/images/apple-touch-icon-300x300.jpg"> <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rundocs/jekyll-rtd-theme@2.0.10/assets/css/theme.min.css"><style>.markdown-body .highlight pre, .markdown-body pre { max-height: 300px; }.markdown-body pre code, .markdown-body pre tt { max-height: 300px; }</style><script> window.ui = { title: "OpenUxAS", baseurl: "", i18n: { search_results: "Search Results", search_results_found: "Search finished, found # page(s) matching the search query.", search_results_not_found: "Your search did not match any documents, please make sure that all characters are spelled correctly!" } }; </script> </head> <body class="container"><div class="sidebar-wrap overflow-hidden"> <div class="sidebar height-full overflow-y-scroll overflow-x-hidden"> <div class="header d-flex flex-column p-3 text-center"> <div class="title pb-1"> <a class="h4 no-underline py-1 px-2 rounded-1" href="/" title="A software framework for mission-level autonomy for teams of unmanned vehicles"> <i class="fa fa-home"></i> OpenUxAS </a> </div> <span class="version"></span> <form class="search pt-2" action="/search.html" method="get" autocomplete="off"> <input class="form-control input-block input-sm" type="text" name="q" placeholder="Search docs..."> </form> </div> <div class="toctree py-2" data-spy="affix" role="navigation" aria-label="main navigation"> <ul> </ul> <a class="caption d-block text-uppercase no-wrap px-2 py-0" href="/documentation/"> Documentation </a><ul> <li class="toc level-1 " data-sort="" data-level="1"> <a class="d-flex flex-items-baseline " href="/documentation/contributing.html">Contributing</a> </li> <li class="toc level-1 " data-sort="" data-level="1"> <a class="d-flex flex-items-baseline " href="/documentation/installation.html">Installation</a> </li> <li class="toc level-1 " data-sort="" data-level="1"> <a class="d-flex flex-items-baseline " href="/documentation/introduction.html">Introduction</a> </li> <li class="toc level-1 " data-sort="" data-level="1"> <a class="d-flex flex-items-baseline " href="/documentation/supportingSoftware.html">Supporting Software</a> </li></ul> <a class="caption d-block text-uppercase no-wrap px-2 py-0" href="/tutorials/"> Tutorials </a><ul> <li class="toc level-1"> <a class="d-flex flex-items-baseline" href="/tutorials/addingServices/"> Creating services </a><ul> <li class="toc level-2 current" data-sort="" data-level="2"> <a class="d-flex flex-items-baseline current" href="/tutorials/addingServices/addGeneralCppService.html">Creating a general service in C++</a> </li></ul> </li> <li class="toc level-1"> <a class="d-flex flex-items-baseline" href="/tutorials/creatingExamples/"> Creating Examples </a><ul> </ul> </li></ul> </div> </div> </div> <div class="content-wrap"> <div class="header d-flex flex-justify-between p-2 hide-lg hide-xl" aria-label="top navigation"> <button id="toggle" aria-label="Toggle menu" class="btn-octicon p-2 m-0 text-white" type="button"> <i class="fa fa-bars"></i> </button> <div class="title flex-1 d-flex flex-justify-center"> <a class="h4 no-underline py-1 px-2 rounded-1" href="/">OpenUxAS</a> </div> </div> <div class="content p-3 p-sm-5"> <div class="navigation-top d-flex flex-justify-between"> <ul class="breadcrumb" role="navigation" aria-label="breadcrumbs navigation"> <li class="breadcrumb-item"> <a class="no-underline" href="/" title="/"> <i class="fa fa-home"></i> </a> </li><li class="breadcrumb-item" ><a href="/tutorials/">tutorials</a></li><li class="breadcrumb-item" ><a href="/tutorials/addingServices/">addingServices</a></li><li class="breadcrumb-item" aria-current="page">addGeneralCppService.md</li></ul> <a class="edit" href="https://github.com/lhumphrey/TestWebsite/edit/gh-pages/tutorials/addingServices/addGeneralCppService.md" title="Edit on GitHub" rel="noreferrer" target="_blank"> <i class="fa fa-edit"></i> </a> </div> <hr> <div role="main" itemscope="itemscope" itemtype="https://schema.org/Article"> <div class="markdown-body" itemprop="articleBody"> <h1 id="creating-a-general-service-in-c">Creating a general service in C++</h1> <p>Broadly speaking, development of a new service in any language requires considering:</p> <ul> <li>What types of messages it subscribes to</li> <li>What computations it should do when it receives a subscribed message</li> <li>What messages (if any) it should publish in response</li> <li>Where it should save files (if any)</li> </ul> <p>Since OpenUxAS is written in C++, you'll generally want to compile a new service written in C++ as part of the main executable. When you run the OpenUxAS executable, you specify in an XML configuration file 1) which services you want to load and 2) values for any service-specific parameters. This XML configuration file is passed to the UxAS executable as a command line argument. This means that for services written in C++ and compiled as part of the main executable, you also need to consider:</p> <ul> <li>What configurable parameters the service has</li> <li>What the format of its XML configuration element</li> </ul> <h2 id="basic-steps">Basic steps</h2> <p>OpenUxAS includes a template header file <code class="language-plaintext highlighter-rouge notranslate">00_ServiceTemplate.h</code> and source file <code class="language-plaintext highlighter-rouge notranslate">00_ServiceTemplate.cpp</code> for general services in C++. If <code class="language-plaintext highlighter-rouge notranslate">{UxAS_ROOT}</code> is your main OpenUxAS directory, then these files are located in directory <code class="language-plaintext highlighter-rouge notranslate">{UXAS_ROOT}/src/cpp/Services</code>.</p> <p>In general, creating a new non-task service consists of the following steps:</p> <ol> <li>Choose a name <code class="language-plaintext highlighter-rouge notranslate">{ServiceName}</code> for your service</li> <li>In directory <code class="language-plaintext highlighter-rouge notranslate">{UxAS_ROOT}/src/cpp/Services</code>, copy <code class="language-plaintext highlighter-rouge notranslate">00_ServiceTemplate.h</code> to <code class="language-plaintext highlighter-rouge notranslate">{ServiceName}.h</code> and <code class="language-plaintext highlighter-rouge notranslate">00_ServiceTemplate.cpp</code> to <code class="language-plaintext highlighter-rouge notranslate">{ServiceName}.cpp</code></li> <li>In both <code class="language-plaintext highlighter-rouge notranslate">{ServiceName}.h</code> and <code class="language-plaintext highlighter-rouge notranslate">{ServiceName}.cpp</code>, <ol> <li>Change all instances of the string <code class="language-plaintext highlighter-rouge notranslate">00_ServiceTemplate</code> to <code class="language-plaintext highlighter-rouge notranslate">{ServiceName}</code></li> <li>Refine the <code class="language-plaintext highlighter-rouge notranslate">namespace</code> (if desired)</li> </ol> </li> <li>In header file <code class="language-plaintext highlighter-rouge notranslate">{ServiceName}.h</code>: <ol> <li>Change the header guard string <code class="language-plaintext highlighter-rouge notranslate">UXAS_00_SERVICE_TEMPLATE_H</code> to a unique string appropriate for the new service, e.g. <code class="language-plaintext highlighter-rouge notranslate">UXAS_{SERVICE_NAME}_H</code></li> <li>If you expect the service to generate output files, update function <code class="language-plaintext highlighter-rouge notranslate">s_directoryName()</code> to return an appropriate directory name</li> <li>Add <code class="language-plaintext highlighter-rouge notranslate">#include</code> directives for any necessary header files</li> <li>Declare any necessary private member data and functions</li> <li>Update the doxygen comments</li> </ol> </li> <li>In source file <code class="language-plaintext highlighter-rouge notranslate">{ServiceName}.cpp</code>: <ol> <li>Update the logic of the member function <code class="language-plaintext highlighter-rouge notranslate">configure</code></li> <li>Add <code class="language-plaintext highlighter-rouge notranslate">#include</code> directives for any published or subscribed messages</li> <li>Add <code class="language-plaintext highlighter-rouge notranslate">#include</code> directives for any other necessary header files</li> <li>Update the logic for member function <code class="language-plaintext highlighter-rouge notranslate">processLmcpMessage</code> to handle different types of subscribed message types</li> <li>Define any necessary private member functions</li> </ol> </li> <li>Modify the build process to include any 3rd party dependencies</li> <li>Create and run an example to exercise the service</li> </ol> <h2 id="an-example-c-service">An example C++ service</h2> <p>Suppose we want to create a service called <code class="language-plaintext highlighter-rouge notranslate">JsonAirVehicleLoggerService</code> that receives <code class="language-plaintext highlighter-rouge notranslate">AirVehicleState</code> messages, converts portions of them to JSON format, and saves them to a file. More specifically, we'd like to specify 1) the name of the output file, 2) the IDs of air vehicles whose messages should be converted and saved, 3) the level of message content per vehicle to be converted and saved. We'd also like the service to publish a <code class="language-plaintext highlighter-rouge notranslate">KeyValuePair</code> message that reports the value of the ID of each vehicle the first time it is seen.</p> <p>We decide that the XML configuration element for our service should look something like this:</p> <div class="language-xml highlighter-rouge notranslate"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;Service</span> <span class="na">Type=</span><span class="s">"JsonAirVehicleLoggerService"</span> <span class="na">Filename=</span><span class="s">"myOutputFile.txt"</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;AirVehicle</span> <span class="na">VehicleID=</span><span class="s">"10"</span> <span class="na">Level=</span><span class="s">"0"</span><span class="nt">/&gt;</span>
+   <span class="nt">&lt;AirVehicle</span> <span class="na">VehicleID=</span><span class="s">"11"</span> <span class="na">Level=</span><span class="s">"1"</span><span class="nt">/&gt;</span>
+   <span class="nt">&lt;AirVehicle</span> <span class="na">VehicleID=</span><span class="s">"12"</span> <span class="na">Level=</span><span class="s">"2"</span><span class="nt">/&gt;</span>
+ <span class="nt">&lt;/Service&gt;</span>
+</code></pre>  </div></div> <p>We also decide that the different reporting levels should save the following message fields:</p> <table> <thead> <tr> <th>Level</th> <th>Fields</th> </tr> </thead> <tbody> <tr> <td>0</td> <td>ID, Time, Latitude, Longitude</td> </tr> <tr> <td>1</td> <td>ID, Time, Latitude, Longitude, Heading, Groundspeed, Airspeed, VerticalSpeed</td> </tr> <tr> <td>2+</td> <td>ID, Time, Latitude, Longitude, Heading, Groundspeed, Airspeed, VerticalSpeed, EnergyAvailable, ActualEnergyRate</td> </tr> </tbody> </table> <h2 id="creating-the-example-c-service">Creating the example C++ service</h2> <p>After copying the template file and going through the basic steps above, we end up with the following header file</p> <div class="language-cpp highlighter-rouge notranslate"><div class="highlight"><pre class="highlight"><code><span class="cm">/* 
+ * File:   JsonAirVehicleLoggerService.h
+ * Author: lhumphrey
+ *
+ * Created on Mar 12, 2021
+ */</span>
+
+<span class="cp">#ifndef UXAS_JSON_AIR_VEHICLE_LOGGER_SERVICE_H
+#define UXAS_JSON_AIR_VEHICLE_LOGGER_SERVICE_H
+</span>
+<span class="cp">#include &lt;nlohmann/json.hpp&gt;
+</span>
+<span class="cp">#include "ServiceBase.h"
+#include "CallbackTimer.h"
+#include "TypeDefs/UxAS_TypeDefs_Timer.h"
+</span>
+<span class="cp">#include &lt;cstdint&gt;
+#include &lt;fstream&gt;
+</span>
+<span class="k">namespace</span> <span class="n">uxas</span>
+<span class="p">{</span>
+<span class="k">namespace</span> <span class="n">service</span>
+<span class="p">{</span>
+<span class="k">namespace</span> <span class="n">data</span>
+<span class="p">{</span>
+
+<span class="cm">/*! \class JsonAirVehicleLoggerService
+    \brief This service saves fields of AirVehicleState messages in JSON format.
+
+ * For each ID-specified air vehicle, save certain fields of corresponding
+ * AirVehicleState messages depending on reporting level: 0-, 1, or 2+.
+ * 
+ * Example Configuration Element: 
+ * &lt;Service Type="JsonAirVehicleLoggerService" Filename="myOutput.txt"&gt;
+ *   &lt;AirVehicle ID="3" Level="0"/&gt;
+ *   &lt;AirVehicle ID="4" Level="0"/&gt;
+ *   &lt;AirVehicle ID="5" Level="1"/&gt;
+ *   &lt;AirVehicle ID="6" Level="2"/&gt;
+ * &lt;/Service&gt;
+ *   
+ * Options:
+ *  - Filename - Name of the file in which to log results
+ *  - - ID - The ID number of the air vehicle
+ *  - - Level - The level of information to report: "0", "1", or "2"
+ * 
+ * Subscribed Messages:
+ *  - afrl::cmasi::AirVehicleState
+ * 
+ * Sent Messages:
+ *  - afrl::cmasi::KeyValuePair
+ * 
+ */</span>
+
+<span class="k">class</span> <span class="nc">JsonAirVehicleLoggerService</span> <span class="o">:</span> <span class="k">public</span> <span class="n">ServiceBase</span>
+<span class="p">{</span>
+<span class="nl">public:</span>
+
+    <span class="k">static</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span>
+    <span class="n">s_typeName</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">static</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s_string</span><span class="p">(</span><span class="s">"JsonAirVehicleLoggerService"</span><span class="p">);</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">s_string</span><span class="p">);</span>
+    <span class="p">};</span>
+
+    <span class="k">static</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span>
+    <span class="n">s_registryServiceTypeNames</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">registryServiceTypeNames</span> <span class="o">=</span> <span class="p">{</span><span class="n">s_typeName</span><span class="p">()};</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">registryServiceTypeNames</span><span class="p">);</span>
+    <span class="p">};</span>
+
+    <span class="c1">// Define name of directory in which output file will be stored</span>
+    <span class="k">static</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span>
+    <span class="n">s_directoryName</span><span class="p">()</span> <span class="p">{</span> <span class="k">static</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s_string</span><span class="p">(</span><span class="s">"JsonAirVehicleLogs"</span><span class="p">);</span> <span class="k">return</span> <span class="p">(</span><span class="n">s_string</span><span class="p">);</span> <span class="p">};</span>
+
+    <span class="k">static</span> <span class="n">ServiceBase</span><span class="o">*</span>
+    <span class="n">create</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">JsonAirVehicleLoggerService</span><span class="p">;</span>
+    <span class="p">};</span>
+
+    <span class="n">JsonAirVehicleLoggerService</span><span class="p">();</span>
+
+    <span class="k">virtual</span>
+    <span class="o">~</span><span class="n">JsonAirVehicleLoggerService</span><span class="p">();</span>
+
+<span class="nl">private:</span>
+
+    <span class="k">static</span>
+    <span class="n">ServiceBase</span><span class="o">::</span><span class="n">CreationRegistrar</span><span class="o">&lt;</span><span class="n">JsonAirVehicleLoggerService</span><span class="o">&gt;</span> <span class="n">s_registrar</span><span class="p">;</span>
+
+    <span class="cm">/** brief Copy construction not permitted */</span>
+    <span class="n">JsonAirVehicleLoggerService</span><span class="p">(</span><span class="n">JsonAirVehicleLoggerService</span> <span class="k">const</span><span class="o">&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="k">delete</span><span class="p">;</span>
+
+    <span class="cm">/** brief Copy assignment operation not permitted */</span>
+    <span class="kt">void</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">JsonAirVehicleLoggerService</span> <span class="k">const</span><span class="o">&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="k">delete</span><span class="p">;</span>
+
+    <span class="kt">bool</span>
+    <span class="n">configure</span><span class="p">(</span><span class="k">const</span> <span class="n">pugi</span><span class="o">::</span><span class="n">xml_node</span><span class="o">&amp;</span> <span class="n">serviceXmlNode</span><span class="p">)</span> <span class="k">override</span><span class="p">;</span>
+
+    <span class="kt">bool</span>
+    <span class="n">initialize</span><span class="p">()</span> <span class="k">override</span><span class="p">;</span>
+
+    <span class="kt">bool</span>
+    <span class="n">start</span><span class="p">()</span> <span class="k">override</span><span class="p">;</span>
+
+    <span class="kt">bool</span>
+    <span class="n">terminate</span><span class="p">()</span> <span class="k">override</span><span class="p">;</span>
+
+    <span class="kt">bool</span>
+    <span class="n">processReceivedLmcpMessage</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">uxas</span><span class="o">::</span><span class="n">communications</span><span class="o">::</span><span class="n">data</span><span class="o">::</span><span class="n">LmcpMessage</span><span class="o">&gt;</span> <span class="n">receivedLmcpMessage</span><span class="p">)</span> <span class="k">override</span><span class="p">;</span>
+
+
+<span class="nl">private:</span>
+
+    <span class="c1">// Member variables to store output filename, a map of ID numbers to report Level based</span>
+    <span class="c1">// on sevice configuration element, and the set of ID numbers seen during execution</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">m_outputFilename</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">"output.txt"</span><span class="p">);</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">unordered_map</span><span class="o">&lt;</span><span class="kt">int64_t</span><span class="p">,</span> <span class="kt">int64_t</span><span class="o">&gt;</span> <span class="n">m_idToLevel</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">unordered_set</span><span class="o">&lt;</span><span class="kt">int64_t</span><span class="o">&gt;</span> <span class="n">m_seenIds</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="p">};</span> <span class="c1">//namespace data</span>
+<span class="p">};</span> <span class="c1">//namespace service</span>
+<span class="p">};</span> <span class="c1">//namespace uxas</span>
+
+<span class="cp">#endif </span><span class="cm">/* UXAS_JSON_AIR_VEHICLE_LOGGER_SERVICE_H */</span><span class="cp">
+</span>
+</code></pre>  </div></div> <p>and the following source file</p> <div class="language-cpp highlighter-rouge notranslate"><div class="highlight"><pre class="highlight"><code><span class="cm">/* 
+ * File:   JsonAirVehicleLoggerService.cpp
+ * Author: lhumphrey
+ *
+ */</span>
+
+<span class="cp">#include "JsonAirVehicleLoggerService.h"
+</span>
+<span class="cp">#include "afrl/cmasi/KeyValuePair.h"
+#include "afrl/cmasi/AirVehicleState.h"
+</span>
+<span class="cp">#include &lt;iostream&gt;
+#include &lt;fstream&gt;
+#include &lt;string&gt;
+</span>
+<span class="cp">#define STRING_XML_FILENAME "Filename"
+#define STRING_XML_VEHICLE "AirVehicle"
+#define STRING_XML_ID "ID"
+#define STRING_XML_LEVEL "Level"
+</span>
+<span class="k">namespace</span> <span class="n">uxas</span>
+<span class="p">{</span>
+<span class="k">namespace</span> <span class="n">service</span>
+<span class="p">{</span>
+<span class="k">namespace</span> <span class="n">data</span>
+<span class="p">{</span>
+
+<span class="n">JsonAirVehicleLoggerService</span><span class="o">::</span><span class="n">ServiceBase</span><span class="o">::</span><span class="n">CreationRegistrar</span><span class="o">&lt;</span><span class="n">JsonAirVehicleLoggerService</span><span class="o">&gt;</span>
+<span class="n">JsonAirVehicleLoggerService</span><span class="o">::</span><span class="n">s_registrar</span><span class="p">(</span><span class="n">JsonAirVehicleLoggerService</span><span class="o">::</span><span class="n">s_registryServiceTypeNames</span><span class="p">());</span>
+
+<span class="n">JsonAirVehicleLoggerService</span><span class="o">::</span><span class="n">JsonAirVehicleLoggerService</span><span class="p">()</span>
+<span class="o">:</span> <span class="n">ServiceBase</span><span class="p">(</span><span class="n">JsonAirVehicleLoggerService</span><span class="o">::</span><span class="n">s_typeName</span><span class="p">(),</span> <span class="n">JsonAirVehicleLoggerService</span><span class="o">::</span><span class="n">s_directoryName</span><span class="p">())</span> <span class="p">{</span> <span class="p">};</span>
+
+<span class="n">JsonAirVehicleLoggerService</span><span class="o">::~</span><span class="n">JsonAirVehicleLoggerService</span><span class="p">()</span> <span class="p">{</span> <span class="p">};</span>
+
+<span class="kt">bool</span> <span class="n">JsonAirVehicleLoggerService</span><span class="o">::</span><span class="n">configure</span><span class="p">(</span><span class="k">const</span> <span class="n">pugi</span><span class="o">::</span><span class="n">xml_node</span><span class="o">&amp;</span> <span class="n">serviceXmlNode</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">bool</span> <span class="n">isSuccess</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
+
+    <span class="c1">// Get and save the Filename attribute (if specified)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">serviceXmlNode</span><span class="p">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">STRING_XML_FILENAME</span><span class="p">).</span><span class="n">empty</span><span class="p">())</span>
+    <span class="p">{</span>
+        <span class="n">m_outputFilename</span> <span class="o">=</span> <span class="n">serviceXmlNode</span><span class="p">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">STRING_XML_FILENAME</span><span class="p">).</span><span class="n">value</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Get and save the ID and Level attributes for each AirVehicle</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">pugi</span><span class="o">::</span><span class="n">xml_node</span> <span class="n">subXmlNode</span> <span class="o">=</span> <span class="n">serviceXmlNode</span><span class="p">.</span><span class="n">first_child</span><span class="p">();</span> <span class="n">subXmlNode</span><span class="p">;</span> <span class="n">subXmlNode</span> <span class="o">=</span> <span class="n">subXmlNode</span><span class="p">.</span><span class="n">next_sibling</span><span class="p">())</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="n">STRING_XML_VEHICLE</span><span class="p">)</span> <span class="o">==</span> <span class="n">subXmlNode</span><span class="p">.</span><span class="n">name</span><span class="p">())</span>
+        <span class="p">{</span>   
+            <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">subXmlNode</span><span class="p">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">STRING_XML_ID</span><span class="p">).</span><span class="n">empty</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">subXmlNode</span><span class="p">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">STRING_XML_LEVEL</span><span class="p">).</span><span class="n">empty</span><span class="p">())</span> 
+            <span class="p">{</span>
+                <span class="kt">int64_t</span> <span class="n">vId</span> <span class="o">=</span> <span class="n">subXmlNode</span><span class="p">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">STRING_XML_ID</span><span class="p">).</span><span class="n">as_int</span><span class="p">();</span>
+                <span class="kt">int64_t</span> <span class="n">reportLevel</span> <span class="o">=</span> <span class="n">subXmlNode</span><span class="p">.</span><span class="n">attribute</span><span class="p">(</span><span class="n">STRING_XML_LEVEL</span><span class="p">).</span><span class="n">as_int</span><span class="p">();</span>
+                <span class="n">m_idToLevel</span><span class="p">[</span><span class="n">vId</span><span class="p">]</span> <span class="o">=</span> <span class="n">reportLevel</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="k">else</span>
+            <span class="p">{</span>
+                <span class="n">UXAS_LOG_ERROR</span><span class="p">(</span><span class="n">s_typeName</span><span class="p">(),</span> <span class="s">"::configure encountered "</span><span class="p">,</span> <span class="n">STRING_XML_VEHICLE</span><span class="p">,</span> 
+                <span class="s">" element with missing attribute "</span><span class="p">,</span> <span class="n">STRING_XML_ID</span><span class="p">,</span> <span class="s">" or "</span><span class="p">,</span> <span class="n">STRING_XML_LEVEL</span><span class="p">);</span>
+                <span class="n">isSuccess</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">else</span>
+        <span class="p">{</span>
+            <span class="n">UXAS_LOG_ERROR</span><span class="p">(</span><span class="n">s_typeName</span><span class="p">(),</span> <span class="s">"::configure encountered unknown element "</span><span class="p">,</span> <span class="n">subXmlNode</span><span class="p">.</span><span class="n">name</span><span class="p">());</span>
+            <span class="n">isSuccess</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="n">addSubscriptionAddress</span><span class="p">(</span><span class="n">afrl</span><span class="o">::</span><span class="n">cmasi</span><span class="o">::</span><span class="n">AirVehicleState</span><span class="o">::</span><span class="n">Subscription</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">isSuccess</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">bool</span> <span class="n">JsonAirVehicleLoggerService</span><span class="o">::</span><span class="n">initialize</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"*** INITIALIZING:: Service["</span> <span class="o">&lt;&lt;</span> <span class="n">s_typeName</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">"] Service Id["</span> <span class="o">&lt;&lt;</span> <span class="n">m_serviceId</span> 
+              <span class="o">&lt;&lt;</span> <span class="s">"] with working directory ["</span> <span class="o">&lt;&lt;</span> <span class="n">m_workDirectoryName</span> <span class="o">&lt;&lt;</span> <span class="s">"] *** "</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    
+    <span class="k">return</span> <span class="p">(</span><span class="nb">true</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">bool</span> <span class="n">JsonAirVehicleLoggerService</span><span class="o">::</span><span class="n">start</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"*** STARTING:: Service["</span> <span class="o">&lt;&lt;</span> <span class="n">s_typeName</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">"] Service Id["</span> <span class="o">&lt;&lt;</span> <span class="n">m_serviceId</span> 
+              <span class="o">&lt;&lt;</span> <span class="s">"] with working directory ["</span> <span class="o">&lt;&lt;</span> <span class="n">m_workDirectoryName</span> <span class="o">&lt;&lt;</span> <span class="s">"] *** "</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    
+    <span class="c1">// Remove any existing contents of the output file on service start</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">ofstream</span> <span class="n">file</span><span class="p">(</span><span class="n">m_workDirectoryPath</span> <span class="o">+</span> <span class="n">m_outputFilename</span><span class="p">);</span>
+    <span class="n">file</span> <span class="o">&lt;&lt;</span> <span class="s">""</span><span class="p">;</span>
+    <span class="n">file</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="nb">true</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="kt">bool</span> <span class="n">JsonAirVehicleLoggerService</span><span class="o">::</span><span class="n">terminate</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"*** TERMINATING:: Service["</span> <span class="o">&lt;&lt;</span> <span class="n">s_typeName</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">"] Service Id["</span> <span class="o">&lt;&lt;</span> <span class="n">m_serviceId</span> 
+              <span class="o">&lt;&lt;</span> <span class="s">"] with working directory ["</span> <span class="o">&lt;&lt;</span> <span class="n">m_workDirectoryName</span> <span class="o">&lt;&lt;</span> <span class="s">"] *** "</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    
+    <span class="k">return</span> <span class="p">(</span><span class="nb">true</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">bool</span> <span class="n">JsonAirVehicleLoggerService</span><span class="o">::</span>
+<span class="n">processReceivedLmcpMessage</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">uxas</span><span class="o">::</span><span class="n">communications</span><span class="o">::</span><span class="n">data</span><span class="o">::</span><span class="n">LmcpMessage</span><span class="o">&gt;</span> <span class="n">receivedLmcpMessage</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">afrl</span><span class="o">::</span><span class="n">cmasi</span><span class="o">::</span><span class="n">isAirVehicleState</span><span class="p">(</span><span class="n">receivedLmcpMessage</span><span class="o">-&gt;</span><span class="n">m_object</span><span class="p">))</span>
+    <span class="p">{</span>
+        <span class="k">auto</span> <span class="n">avState</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">static_pointer_cast</span><span class="o">&lt;</span><span class="n">afrl</span><span class="o">::</span><span class="n">cmasi</span><span class="o">::</span><span class="n">AirVehicleState</span><span class="o">&gt;</span> <span class="p">(</span><span class="n">receivedLmcpMessage</span><span class="o">-&gt;</span><span class="n">m_object</span><span class="p">);</span>
+
+        <span class="c1">// If the ID of an AirVehicleState message corresponds to a configured ID and</span>
+        <span class="c1">// has not been seen before, store the ID and publish a corresponding KeyValuePair</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">m_idToLevel</span><span class="p">.</span><span class="n">count</span><span class="p">(</span><span class="n">avState</span><span class="o">-&gt;</span><span class="n">getID</span><span class="p">())</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">m_seenIds</span><span class="p">.</span><span class="n">count</span><span class="p">(</span><span class="n">avState</span><span class="o">-&gt;</span><span class="n">getID</span><span class="p">()))</span>
+        <span class="p">{</span>
+            <span class="n">m_seenIds</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">avState</span><span class="o">-&gt;</span><span class="n">getID</span><span class="p">());</span>
+            <span class="k">auto</span> <span class="n">kvp</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">afrl</span><span class="o">::</span><span class="n">cmasi</span><span class="o">::</span><span class="n">KeyValuePair</span><span class="o">&gt;</span><span class="p">();</span>
+            <span class="n">kvp</span><span class="o">-&gt;</span><span class="n">setKey</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">"JsonAirVehicleLoggerVehicleID"</span><span class="p">));</span>
+            <span class="n">kvp</span><span class="o">-&gt;</span><span class="n">setValue</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">avState</span><span class="o">-&gt;</span><span class="n">getID</span><span class="p">()));</span>
+            <span class="n">sendSharedLmcpObjectBroadcastMessage</span><span class="p">(</span><span class="n">kvp</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="c1">// If the ID was listed in the configuration element, save a JSON message </span>
+        <span class="c1">// with content according to the configured Level for that ID</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">m_idToLevel</span><span class="p">.</span><span class="n">count</span><span class="p">(</span><span class="n">avState</span><span class="o">-&gt;</span><span class="n">getID</span><span class="p">()))</span> 
+        <span class="p">{</span>
+            <span class="n">nlohmann</span><span class="o">::</span><span class="n">json</span> <span class="n">j</span><span class="p">;</span>
+            <span class="n">j</span><span class="p">[</span><span class="s">"ID"</span><span class="p">]</span> <span class="o">=</span> <span class="n">avState</span><span class="o">-&gt;</span><span class="n">getID</span><span class="p">();</span>
+            <span class="n">j</span><span class="p">[</span><span class="s">"Time"</span><span class="p">]</span> <span class="o">=</span> <span class="n">avState</span><span class="o">-&gt;</span><span class="n">getTime</span><span class="p">();</span>
+            <span class="n">j</span><span class="p">[</span><span class="s">"Latitude"</span><span class="p">]</span> <span class="o">=</span> <span class="n">avState</span><span class="o">-&gt;</span><span class="n">getLocation</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getLatitude</span><span class="p">();</span>
+            <span class="n">j</span><span class="p">[</span><span class="s">"Longitude"</span><span class="p">]</span> <span class="o">=</span> <span class="n">avState</span><span class="o">-&gt;</span><span class="n">getLocation</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">getLongitude</span><span class="p">();</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="n">m_idToLevel</span><span class="p">[</span><span class="n">avState</span><span class="o">-&gt;</span><span class="n">getID</span><span class="p">()]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">j</span><span class="p">[</span><span class="s">"Heading"</span><span class="p">]</span> <span class="o">=</span> <span class="n">avState</span><span class="o">-&gt;</span><span class="n">getHeading</span><span class="p">();</span>
+                <span class="n">j</span><span class="p">[</span><span class="s">"Groundspeed"</span><span class="p">]</span> <span class="o">=</span> <span class="n">avState</span><span class="o">-&gt;</span><span class="n">getGroundspeed</span><span class="p">();</span>
+                <span class="n">j</span><span class="p">[</span><span class="s">"Airspeed"</span><span class="p">]</span> <span class="o">=</span> <span class="n">avState</span><span class="o">-&gt;</span><span class="n">getAirspeed</span><span class="p">();</span>
+                <span class="n">j</span><span class="p">[</span><span class="s">"VerticalSpeed"</span><span class="p">]</span> <span class="o">=</span> <span class="n">avState</span><span class="o">-&gt;</span><span class="n">getVerticalSpeed</span><span class="p">();</span>
+            <span class="p">}</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="n">m_idToLevel</span><span class="p">[</span><span class="n">avState</span><span class="o">-&gt;</span><span class="n">getID</span><span class="p">()]</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">j</span><span class="p">[</span><span class="s">"EnergyAvailable"</span><span class="p">]</span> <span class="o">=</span> <span class="n">avState</span><span class="o">-&gt;</span><span class="n">getEnergyAvailable</span><span class="p">();</span>
+                <span class="n">j</span><span class="p">[</span><span class="s">"ActualEnergyRate"</span><span class="p">]</span> <span class="o">=</span> <span class="n">avState</span><span class="o">-&gt;</span><span class="n">getActualEnergyRate</span><span class="p">();</span>
+            <span class="p">}</span>
+
+            <span class="n">std</span><span class="o">::</span><span class="n">ofstream</span> <span class="n">file</span><span class="p">(</span><span class="n">m_workDirectoryPath</span> <span class="o">+</span> <span class="n">m_outputFilename</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">ios</span><span class="o">::</span><span class="n">app</span><span class="p">);</span>
+            <span class="n">file</span> <span class="o">&lt;&lt;</span> <span class="n">j</span><span class="p">.</span><span class="n">dump</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+            <span class="n">file</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
+        <span class="p">}</span>
+        
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="p">};</span> <span class="c1">//namespace data</span>
+<span class="p">};</span> <span class="c1">//namespace service</span>
+<span class="p">};</span> <span class="c1">//namespace uxas</span>
+</code></pre>  </div></div> <p>To write our service, we follow the steps above. Some things to take note of:</p> <ul> <li>For steps 1-3 we: <ul> <li>Replace <code class="language-plaintext highlighter-rouge notranslate">00_ServiceTemplate</code> with <code class="language-plaintext highlighter-rouge notranslate">JsonAirVehicleLoggerService</code></li> <li>Refine the namespace to <code class="language-plaintext highlighter-rouge notranslate">uxas::service::data</code></li> </ul> </li> <li>For step 4 we do the following in the header file: <ul> <li>Change the header guard string <code class="language-plaintext highlighter-rouge notranslate">UXAS_00_SERVICE_TEMPLATE_H</code> to <code class="language-plaintext highlighter-rouge notranslate">UXAS_JSON_AIR_VEHICLE_LOGGER_SERVICE_H</code></li> <li>Update function <code class="language-plaintext highlighter-rouge notranslate">s_directoryName()</code> to return <code class="language-plaintext highlighter-rouge notranslate">"JsonAirVehicleLogs"</code></li> <li>Include a header <code class="language-plaintext highlighter-rouge notranslate">nlohmann/json.hpp</code> for a 3rd party dependency for working with JSON</li> <li>Declare private member variables <code class="language-plaintext highlighter-rouge notranslate">m_outputFilename</code> (with default value <code class="language-plaintext highlighter-rouge notranslate">"output.txt"</code>), <code class="language-plaintext highlighter-rouge notranslate">m_idToLevelMap</code>, and <code class="language-plaintext highlighter-rouge notranslate">m_seenVehicleSet</code> that will be used in the source file</li> <li>Update the main doxygen-compatible comment block at the top, paying particular attention to the example configuration element, its options, and the lists of subscribed and sent messages</li> </ul> </li> <li>For step 5 we do the following in the source file: <ul> <li>Include headers for necessary messages: <code class="language-plaintext highlighter-rouge notranslate">"afrl/cmasi/KeyValuePair.h"</code> and <code class="language-plaintext highlighter-rouge notranslate">"afrl/cmasi/AirVehicleState.h"</code></li> <li>Include headers <code class="language-plaintext highlighter-rouge notranslate">&lt;fstream&gt;</code> and <code class="language-plaintext highlighter-rouge notranslate">&lt;string&gt;</code></li> <li>Update the logic of function <code class="language-plaintext highlighter-rouge notranslate">configure</code> to process an XML configuration element of the form given in the main comment block of the header <ul> <li>(Optional convention) Define macros for configuration element and attribute strings</li> <li>Save configuration parameters to <code class="language-plaintext highlighter-rouge notranslate">m_outputFilename</code> (if applicable) and <code class="language-plaintext highlighter-rouge notranslate">m_idToLevel</code></li> <li>Log errors and set <code class="language-plaintext highlighter-rouge notranslate">isSuccess = False</code> if the configuration element is invalid</li> </ul> </li> <li>Update the logic of function <code class="language-plaintext highlighter-rouge notranslate">processReceivedLmcpMessage</code> to process <code class="language-plaintext highlighter-rouge notranslate">AirVehicleState</code> messages <ul> <li>Output a <code class="language-plaintext highlighter-rouge notranslate">KeyValuePair</code> of the form (<code class="language-plaintext highlighter-rouge notranslate">JsonAirVehicleLoggerVehicleID</code>,<code class="language-plaintext highlighter-rouge notranslate">{ID}</code>) the first time an <code class="language-plaintext highlighter-rouge notranslate">ID</code> number corresponding to an <code class="language-plaintext highlighter-rouge notranslate">AirVehicle</code> configuration element is seen</li> <li>Construct and save a JSON-formatted message to the configured output file with content depending on the <code class="language-plaintext highlighter-rouge notranslate">Level</code> of the <code class="language-plaintext highlighter-rouge notranslate">AirVehicle</code> configuration element with the corresponding <code class="language-plaintext highlighter-rouge notranslate">ID</code></li> </ul> </li> </ul> </li> </ul> <h2 id="compiling-the-example-c-service">Compiling the example C++ service</h2> <h2 id="running-the-example-c-service">Running the example C++ service</h2> </div> </div> <hr> <div class="copyright text-center text-gray" role="contentinfo"> <i class="fa fa-copyright"></i> <span class="time">2021,</span> <a class="text-gray" href="https://github.com/lhumphrey" rel="noreferrer" target="_blank">lhumphrey</a> Revision <a class="text-gray" href="https://github.com/lhumphrey/TestWebsite/commit/9ce06256c35f963ba058166c53fa1df491567fec" title="9ce06256c35f963ba058166c53fa1df491567fec" rel="noreferrer" target="_blank">9ce0625</a> <br> <div class="generator"> Built with <a href="https://pages.github.com" rel="noreferrer" target="_blank" title="github-pages v209">GitHub Pages</a> using a <a href="https://github.com/rundocs/jekyll-rtd-theme" rel="noreferrer" target="_blank" title="jekyll-rtd-theme v2.0.10">theme</a> provided by <a href="https://rundocs.io" rel="noreferrer" target="_blank">RunDocs</a>. </div> </div> </div> </div> <div class="addons-wrap d-flex flex-column overflow-y-auto"> <div class="status d-flex flex-justify-between p-2"> <div class="title p-1"> <i class="fa fa-book"></i> OpenUxAS </div> <div class="branch p-1"> <span class="name"> gh-pages </span> <i class="fa fa-caret-down"></i> </div> </div> <div class="addons d-flex flex-column height-full p-2 d-none"> <dl> <dt>GitHub</dt> <dd> <a href="https://github.com/lhumphrey/TestWebsite" title="Stars: 0"> <i class="fa fa-github"></i> Homepage </a> </dd> <dd> <a href="https://github.com/lhumphrey/TestWebsite/issues" title="Open issues: 0"> <i class="fa fa-question-circle-o"></i> Issues </a> </dd> <dd> <a href="https://github.com/lhumphrey/TestWebsite/zipball/gh-pages" title="Size: 3102 Kb"> <i class="fa fa-download"></i> Download </a> </dd> </dl> <hr> <div class="license f6 pb-2"> This <a href="/" title="OpenUxAS">Software</a> is under the terms of <a href="https://github.com/lhumphrey/TestWebsite">MIT License</a>. </div> </div> </div> <script src="https://cdn.jsdelivr.net/gh/rundocs/jekyll-rtd-theme@2.0.10/assets/js/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/gh/rundocs/jekyll-rtd-theme@2.0.10/assets/js/theme.min.js"></script> </body> </html>
