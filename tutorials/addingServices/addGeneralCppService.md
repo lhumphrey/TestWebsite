@@ -381,5 +381,25 @@ To write our service, we follow the steps above. Some things to take note of:
 
 
 ## Compiling the example C++ service
+(TBD)
+
 
 ## Running the example C++ service
+
+By convention, OpenUxAS examples are placed in subdirectories within `{UXAS_ROOT}/examples`. There is a template directory `{UXAS_ROOT}/examples/00_Template` that contains the files needed to bootstrap many standard examples. Once you have recompiled OpenUxAS with the `JsonAirVehicleLoggerService`, you can run this service as part of an example by performing the following steps within directory `{UXAS_ROOT}/examples`
+1. Copy subdirectory `00_Template` to a new subdirectory `{My_Example}`
+2. Edit OpenUxAS configuration file `{MyExample}/cfg_Template.xml` to include an XML configuration element for the service (the one in the header file's main comment block will work)
+3. Run OpenUxAS with the modified configuration file and in conjunction with OpenAMASE in one of several ways
+   - With the `run-example` script from directory `{UXAS_ROOT}` using command: `./run-examples {My_Example}`
+   - With shell scripts from directory `{UXAS_ROOT}/examples/{My_Example}` using command: `./runAMASE_Template.sh & ./runUxAS_Template.sh`
+4. Press the Play button in the OpenAMASE simulation pane
+   - In the OpenAMASE simulation, vehicles should start to move
+   - In the terminal, the OpenUxAS binary should output text, including "INITIALIZING" and "STARTING" messages from `JsonAirVehicleLoggerService`
+5. After the simulation has run for at least a few seconds, 
+   - If you used the `run-example` script, close the OpenAMASE GUI and the OpenUxAS process will terminate automatically
+   - If you used the shell scripts, close the OpenAMASE GUI and also kill the OpenUxAS process by pressing Ctrl+C in the terminal window
+6. Examine the contents of `{UXAS_ROOT}/examples/{My_Example}/RUNDIR_Template/datawork`
+   - Subdirectory `JsonAirVehicleLogs` should contain an output file with JSON-formatted messages
+   - Subdirectory `SavedMessages` should contain a SQL file `messageLog_1_0.db3` that contains the `KeyValuePair` messages published by `JsonAirVehicleLoggerService`    
+
+  
